@@ -3,7 +3,7 @@ class dfs():
   def __init__(self, graph=None, visited=None):
     self.graph = dict()
     self.visited = dict()
-
+    self.stack=list()
   def add_vertex(self, v):
     if v in self.graph:
       print("Vertex ", v, " already exists.")
@@ -25,8 +25,8 @@ class dfs():
       # imply that an edge exists between v2 and v1
       temp = [v2, e]
       self.graph[v1].append(temp)
-      temp1=[v1,e]             #for undirected
-      self.graph[v2].append(temp1)  #for undirected
+      # temp1=[v1,e]             #for undirected
+      # self.graph[v2].append(temp1)  #for undirected
 
   # Print the graph
   def print_graph(self):
@@ -41,6 +41,9 @@ class dfs():
     for edges in self.graph[v]:
       if self.visited[edges[0]]!=1:
         self.dfs_visit(edges[0],self.visited)
+       
+    self.stack.append(v)
+
 
   def dfs_main(self):
     for key, value in self.graph.items():
@@ -52,19 +55,39 @@ d = dfs()
 
 # stores the number of vertices in the graph
 vertices_no = 0
-d.add_vertex('A')
-d.add_vertex('B')
-d.add_vertex('C')
-d.add_vertex('D')
-d.add_vertex('W')
+# d.add_vertex('A')
+# d.add_vertex('B')
+# d.add_vertex('C')
+# d.add_vertex('D')
+# d.add_vertex('W')
+
+d.add_vertex(0)
+d.add_vertex(1)
+d.add_vertex(2)
+d.add_vertex(3)
+d.add_vertex(4)
+d.add_vertex(5)
+d.add_vertex(6)
+d.add_vertex(7)
+
 # Add the edges between the vertices by specifying
 # the from and to vertex along with the edge weights.
-d.add_edge('A', 'B', 1)
-d.add_edge('A', 'C', 2)
-d.add_edge('D', 'A', 3)
-d.add_edge('B','D',5)
-# add_edge(3, 4, 4)
-# add_edge(4, 1, 5)
+# d.add_edge('A', 'B', 1)
+# d.add_edge('A', 'C', 2)
+# d.add_edge('D', 'A', 3)
+# d.add_edge('B','D',5)
+d.add_edge(0, 1, 1)
+d.add_edge(1, 2, 5)
+d.add_edge(2, 3, 3)
+d.add_edge(2, 4, 5)
+d.add_edge(3, 0, 1)
+d.add_edge(4, 5, 2)
+d.add_edge(5, 6, 5)
+d.add_edge(6, 4, 5)
+d.add_edge(6, 7, 5)
+
+
+
 d.print_graph()
 # Reminder: the second element of each list inside the dictionary
 # denotes the edge weight.
@@ -72,3 +95,4 @@ print ("Internal representation: ", d.graph)
 print("visited:     ",d.visited)
 d.dfs_main()
 print(d.visited)
+print("stack is",d.stack)
