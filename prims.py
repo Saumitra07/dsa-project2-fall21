@@ -1,33 +1,24 @@
 import sys
 from heapq import heappop, heappush
-class dfs():
-    def __init__(self, graph=None, visited=None):
-        self.graph = dict()
-        self.visited = dict()
-        self.stack=list()
-    
-    def add_vertex(self, v, graph = None, visited = None):
-        if not graph.get(v):
-            graph[v] = []
-            visited[v]=0
 
-  # Add an edge between vertex v1 and v2 with edge weight e
-    def add_edge(self, v1, v2, e,isUndirected, graph = None):
-        # Check if vertex v1 is a valid vertex
-        if v1 not in graph:
+class Prims():
+    def __init__(self, graph=None):
+        self.graph = dict()
+    
+    def add_vertex(self, v):
+        if not self.graph.get(v):
+            self.graph[v] = []
+
+    def add_edge(self, v1, v2, e,isUndirected):
+        if v1 not in self.graph:
             print("Vertex ", v1, " does not exist.")
-        # Check if vertex v2 is a valid vertex
-        elif v2 not in graph:
+        elif v2 not in self.graph:
             print("Vertex ", v2, " does not exist.")
         else:
-        # Since this code is not restricted to a directed or 
-        # an undirected graph, an edge between v1 v2 does not
-        # imply that an edge exists between v2 and v1
             temp = [v2, e]
-            graph[v1].append(temp)
+            self.graph[v1].append(temp)
             temp1=[v1,e]             #for undirected
             self.graph[v2].append(temp1)  #for undirected
-    
     
     def prims_min_spanning_tree(self, graph, source):
         pq = []
@@ -55,7 +46,7 @@ class dfs():
                     keys[edges[0]] = edges[1]
                     heappush(pq, (edges[1], edges[0]))
                     pred[edges[0]] = node[1]
-        
+
         sum=0
         for key in keys:
             sum+=keys[key]
@@ -66,94 +57,63 @@ class dfs():
                 print('Weight:',keys[key])
         print('Total Cost of minimum spanning tree is:', sum)
 
+    def prims_main(self, fileName='undirectedGraph1.txt'):
+        p = Prims()
+        fileLines = []
+        with open(fileName,'r') as graph_file:
+            fileLines = graph_file.read().splitlines() 
 
+        graph_info = fileLines[0].split(' ')
+        number_of_vertices = graph_info[0]
+        number_of_edges = graph_info[1]
+        isUndirected = False
+        if str(graph_info[2]).lower() == 'u':
+            isUndirected = True
 
-d = dfs()
+        for i in range(1, len(fileLines)-1):
+            edge_info = fileLines[i].split(' ')
+            vertex_src = edge_info[0]
+            vertex_dest = edge_info[1]
+            edge_weight = edge_info[2]
+            p.add_vertex(vertex_src)
+            p.add_vertex(vertex_dest)
+            p.add_edge(vertex_src, vertex_dest, int(edge_weight), isUndirected) 
 
-# stores the number of vertices in the graph
-vertices_no = 0
+        graph_source = fileLines[-1].split(' ')[0]
+        p.prims_min_spanning_tree(p.graph,graph_source)
 
-fileLines = []
-with open('undirectedGraph_3.txt','r') as graph_file:
-    fileLines = graph_file.read().splitlines() 
+if __name__ == "__main__":
+    menu = {1: 'Undirected Graph 1', 2: 'Undirected Graph 2', 3: 'Undirected Graph 3',4: 'Undirected Graph 4', 5: 'Exit'}
+    prims = Prims()
+    fileName = ''
+    while True:
+        print('--------------------------------------------------')
+        for key, value in menu.items():
+            print(key,'-',value)
+        
+        select_option = ''
+        try:
+            select_option = int(input('Please select the graph to be used to run  the prims algorithm: '))
+        except:
+            print('Please input a number')
+        
+        if select_option == 1:
+            fileName = 'undirectedGraph1.txt'
+            prims.prims_main(fileName)
 
-graph_info = fileLines[0].split(' ')
-number_of_vertices = graph_info[0]
-number_of_edges = graph_info[1]
-isUndirected = False
-if str(graph_info[2]).lower() == 'u':
-    isUndirected = True
+        elif select_option == 2:
+            fileName = 'undirectedGraph2.txt'
+            prims.prims_main(fileName)
 
-for i in range(1, len(fileLines)-1):
-    edge_info = fileLines[i].split(' ')
-    vertex_src = edge_info[0]
-    vertex_dest = edge_info[1]
-    edge_weight = edge_info[2]
-    d.add_vertex(vertex_src,d.graph, d.visited)
-    d.add_vertex(vertex_dest,d.graph, d.visited)
-    d.add_edge(vertex_src, vertex_dest, int(edge_weight), isUndirected,d.graph) 
+        elif select_option == 3:
+            fileName = 'undirectedGraph3.txt'
+            prims.prims_main(fileName)
+        
+        elif select_option == 4:
+            fileName = 'undirectedGraph4.txt'
+            prims.prims_main(fileName)
 
-graph_source = fileLines[-1].split(' ')[0]
-
-d.prims_min_spanning_tree(d.graph,graph_source)
-# d.add_vertex('A')
-# d.add_vertex('B')
-# d.add_vertex('C')
-# d.add_vertex('D')
-# d.add_vertex('W')
-
-# d.add_vertex('a',d.graph, d.visited)
-# d.add_vertex('b',d.graph, d.visited)
-# d.add_vertex('c',d.graph, d.visited)
-# d.add_vertex('d',d.graph, d.visited)
-# d.add_vertex('e',d.graph, d.visited)
-# d.add_vertex('f',d.graph,d.visited)
-# d.add_vertex('g',d.graph,d.visited)
-# d.add_vertex('h',d.graph,d.visited)
-# d.add_vertex('i',d.graph,d.visited)
-# d.add_vertex('s',d.graph,d.visited)
-
-
-
-
-
-
-# d.add_vertex(6,d.graph, d.visited)
-# d.add_vertex(7,d.graph, d.visited)
-
-
-
-# d.add_edge('a', 'c', 5,d.graph)  
-# d.add_edge('a', 'e', 4,d.graph)
-# d.add_edge('a', 'f', 2,d.graph)
-# d.add_edge('b','e',6,d.graph)
-# d.add_edge('b', 'f', 6,d.graph)
-# d.add_edge('c', 'd', 3,d.graph)
-# d.add_edge('d', 'h', 7,d.graph)
-# d.add_edge('h', 'g', 7,d.graph)
-# d.add_edge('g', 'e', 4,d.graph)
-# d.add_edge('g', 'i', 5,d.graph)
-# d.add_edge('i', 'b', 2,d.graph)
-# d.add_edge('e', 'd', 6,d.graph)
-# d.add_edge('d', 'a', 2,d.graph)
-
-
-#d.prims_min_spanning_tree(d.graph,'d')
-# d.add_edge('f','e',2,d.graph)
-# d.findShortestPaths(d.graph,'a',5)
-
-# Add the edges between the vertices by specifying
-# the from and to vertex along with the edge weights.
-# d.add_edge('A', 'B', 1)
-# d.add_edge('A', 'C', 2)
-# d.add_edge('D', 'A', 3)
-# d.add_edge('B','D',5)
-# d.add_edge(0, 1, 1, d.graph)
-# d.add_edge(1, 2, 5, d.graph)
-# d.add_edge(2, 3, 3, d.graph)
-# d.add_edge(2, 4, 5, d.graph)
-# d.add_edge(3, 0, 1, d.graph)
-# d.add_edge(4, 5, 2, d.graph)
-# d.add_edge(5, 6, 5, d.graph)
-# d.add_edge(6, 4, 5, d.graph)
-# d.add_edge(6, 7, 5, d.graph)
+        elif select_option == 5:
+            break
+        else:
+            print('Please enter input from the menu options')
