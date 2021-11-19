@@ -27,8 +27,8 @@ class dfs():
         # imply that an edge exists between v2 and v1
             temp = [v2, e]
             graph[v1].append(temp)
-        # temp1=[v1,e]             #for undirected
-        # self.graph[v2].append(temp1)  #for undirected
+            temp1=[v1,e]             #for undirected
+            self.graph[v2].append(temp1)  #for undirected
     
     def fetch_route(self, vertex, res, pred):
         while pred[vertex] != None:
@@ -71,14 +71,7 @@ class dfs():
                     pred[edges[0]]=node[1]
                     heappush(pq,(dist[edges[0]],edges[0]))
 
-            # # do for each neighbor `v` of `u`
-            # for (v, weight) in graph.adjList[u]:
-            #     if not done[v] and (dist[u] + weight) < dist[v]:        # Relaxation step
-            #         dist[v] = dist[u] + weight
-            #         prev[v] = u
-            #         heappush(pq, Node(v, dist[v]))
-    
-            # mark vertex `u` as done so it will not get picked up again
+          
         
         res = []
         for key,value in self.graph.items():
@@ -111,6 +104,10 @@ d.add_vertex('b',d.graph, d.visited)
 d.add_vertex('c',d.graph, d.visited)
 d.add_vertex('d',d.graph, d.visited)
 d.add_vertex('e',d.graph, d.visited)
+d.add_vertex('f',d.graph,d.visited)
+d.add_vertex('g',d.graph,d.visited)
+d.add_vertex('h',d.graph,d.visited)
+d.add_vertex('i',d.graph,d.visited)
 # d.add_vertex('f',d.graph, d.visited)
 # d.add_vertex('s',d.graph,d.visited)
 
@@ -124,17 +121,22 @@ d.add_vertex('e',d.graph, d.visited)
 
 
 
-d.add_edge('a', 'b', 10,d.graph)  
-d.add_edge('a', 'e', 3,d.graph)
-d.add_edge('b', 'e', 4,d.graph)
-d.add_edge('b','c',2,d.graph)
-d.add_edge('c', 'd', 9,d.graph)
-d.add_edge('d', 'c', 7,d.graph)
-d.add_edge('e', 'd', 2,d.graph)
-d.add_edge('e', 'c', 8,d.graph)
-d.add_edge('e', 'b', 1,d.graph)
+d.add_edge('a', 'c', 5,d.graph)  
+d.add_edge('a', 'e', 4,d.graph)
+d.add_edge('a', 'f', 2,d.graph)
+d.add_edge('b','e',6,d.graph)
+d.add_edge('b', 'f', 6,d.graph)
+d.add_edge('c', 'd', 3,d.graph)
+d.add_edge('d', 'h', 7,d.graph)
+d.add_edge('h', 'g', 7,d.graph)
+d.add_edge('g', 'e', 4,d.graph)
+d.add_edge('g', 'i', 5,d.graph)
+d.add_edge('i', 'b', 2,d.graph)
+d.add_edge('e', 'd', 6,d.graph)
+d.add_edge('d', 'a', 2,d.graph)
+
 # d.add_edge('f','e',2,d.graph)
-d.findShortestPaths(d.graph,'a',5)
+d.findShortestPaths(d.graph,'d',9)
 
 # Add the edges between the vertices by specifying
 # the from and to vertex along with the edge weights.
