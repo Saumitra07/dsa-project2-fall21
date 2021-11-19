@@ -1,5 +1,6 @@
 import sys
 from heapq import heappop, heappush
+
 class dfs():
     def __init__(self, graph=None, visited=None):
         self.graph = dict()
@@ -91,6 +92,17 @@ class dfs():
 
 d = dfs()
 
+names = []
+marks = []
+
+fileLines = []
+with open('undirectedGraph_1.txt','r') as graph_file:
+    fileLines = graph_file.read().splitlines() 
+print(fileLines)
+
+for line in fileLines:
+    l = line.split(' ')
+    last = l[2]
 # stores the number of vertices in the graph
 vertices_no = 0
 # d.add_vertex('A')
@@ -108,17 +120,6 @@ d.add_vertex('f',d.graph,d.visited)
 d.add_vertex('g',d.graph,d.visited)
 d.add_vertex('h',d.graph,d.visited)
 d.add_vertex('i',d.graph,d.visited)
-# d.add_vertex('f',d.graph, d.visited)
-# d.add_vertex('s',d.graph,d.visited)
-
-
-
-
-
-
-# d.add_vertex(6,d.graph, d.visited)
-# d.add_vertex(7,d.graph, d.visited)
-
 
 
 d.add_edge('a', 'c', 5,d.graph)  

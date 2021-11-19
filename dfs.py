@@ -105,7 +105,6 @@ vertices_no = 0
 # d.add_vertex('D')
 # d.add_vertex('W')
 
-d.add_vertex(0,d.graph, d.visited)
 d.add_vertex(1,d.graph, d.visited)
 d.add_vertex(2,d.graph, d.visited)
 d.add_vertex(3,d.graph, d.visited)
@@ -113,6 +112,8 @@ d.add_vertex(4,d.graph, d.visited)
 d.add_vertex(5,d.graph, d.visited)
 d.add_vertex(6,d.graph, d.visited)
 d.add_vertex(7,d.graph, d.visited)
+d.add_vertex(8,d.graph, d.visited)
+d.add_vertex(9,d.graph, d.visited)
 
 # Add the edges between the vertices by specifying
 # the from and to vertex along with the edge weights.
@@ -120,15 +121,27 @@ d.add_vertex(7,d.graph, d.visited)
 # d.add_edge('A', 'C', 2)
 # d.add_edge('D', 'A', 3)
 # d.add_edge('B','D',5)
-d.add_edge(0, 1, 1, d.graph)
-d.add_edge(1, 2, 5, d.graph)
-d.add_edge(2, 3, 3, d.graph)
-d.add_edge(2, 4, 5, d.graph)
-d.add_edge(3, 0, 1, d.graph)
-d.add_edge(4, 5, 2, d.graph)
-d.add_edge(5, 6, 5, d.graph)
-d.add_edge(6, 4, 5, d.graph)
-d.add_edge(6, 7, 5, d.graph)
+# d.add_edge(0, 3, 1, d.graph)
+# d.add_edge(0, 2, 5, d.graph)
+d.add_edge(1, 7, 3, d.graph)
+d.add_edge(2, 5, 5, d.graph)
+d.add_edge(3, 9, 1, d.graph)
+
+
+d.add_edge(4, 1, 3, d.graph)
+d.add_edge(5, 8, 5, d.graph)
+d.add_edge(6, 3, 1, d.graph)
+
+d.add_edge(6, 8, 3, d.graph)
+d.add_edge(7, 4, 5, d.graph)
+d.add_edge(7, 9, 1, d.graph)
+
+d.add_edge(8, 2, 3, d.graph)
+d.add_edge(9, 6, 5, d.graph)
+# d.add_edge(4, 5, 2, d.graph)
+# d.add_edge(5, 6, 5, d.graph)
+# d.add_edge(6, 4, 5, d.graph)
+# d.add_edge(6, 7, 5, d.graph)
 
 
 
