@@ -2,20 +2,16 @@ import sys
 from heapq import heappop, heappush
 
 class dfs():
-    def __init__(self, graph=None, visited=None):
+    def __init__(self, graph=None):
         self.graph = dict()
-        self.visited = dict()
-        self.stack=list()
     
     def add_vertex(self, v, graph = None, visited = None):
-        if v in graph:
-            print("Vertex ", v, " already exists.")
-        else:
+        if not graph.get(v):
             graph[v] = []
             visited[v]=0
 
   # Add an edge between vertex v1 and v2 with edge weight e
-    def add_edge(self, v1, v2, e, graph = None):
+    def add_edge(self, v1, v2, e, isUndirected,graph = None):
         # Check if vertex v1 is a valid vertex
         if v1 not in graph:
             print("Vertex ", v1, " does not exist.")
@@ -28,8 +24,10 @@ class dfs():
         # imply that an edge exists between v2 and v1
             temp = [v2, e]
             graph[v1].append(temp)
-            temp1=[v1,e]             #for undirected
-            self.graph[v2].append(temp1)  #for undirected
+
+            if isUndirected:
+                temp1=[v1,e]             #for undirected
+                self.graph[v2].append(temp1)  #for undirected
     
     def fetch_route(self, vertex, res, pred):
         while pred[vertex] != None:
@@ -59,11 +57,8 @@ class dfs():
         pred={}
         for v in graph:
             pred[v]=None
-        
-    
         # run till min-heap is empty
         while pq:
-    
             node = heappop(pq)      # Remove and return the best vertex
             #u = node.vertex         # get the vertex number
             for edges in self.graph[node[1]]:
@@ -71,9 +66,6 @@ class dfs():
                     dist[edges[0]]=dist[node[1]]+edges[1]
                     pred[edges[0]]=node[1]
                     heappush(pq,(dist[edges[0]],edges[0]))
-
-          
-        
         res = []
         for key,value in self.graph.items():
             if key != source and dist[key] != sys.maxsize:
@@ -81,19 +73,7 @@ class dfs():
                 print(f'Path ({source} —> {key}): Minimum cost = {dist[key]}, Route = {res[::-1]}')
                 res = []
 
-        # res = []
-        # for i in range(n):
-        #     if i != source and dist[i] != sys.maxsize:
-        #         self.fetch_route(i, res, pred)
-        #         print(f'Path ({source} —> {i}): Minimum cost = {dist[i]}, Route = {route}')
-        #         route.clear()
- 
-
-
 d = dfs()
-
-names = []
-marks = []
 
 fileLines = []
 with open('undirectedGraph_1.txt','r') as graph_file:
@@ -111,11 +91,9 @@ for i in range(1, len(fileLines)-1):
     vertex_src = edge_info[0]
     vertex_dest = edge_info[1]
     edge_weight = edge_info[2]
-    if not d.graph.get(vertex_src):
-        d.add_vertex(vertex_src,d.graph, d.visited)
-    if not d.graph.get(vertex_src):
-        d.add_vertex(vertex_dest,d.graph, d.visited)
-    d.add_edge(vertex_src, vertex_dest, int(edge_weight),d.graph) 
+    d.add_vertex(vertex_src,d.graph, d.visited)
+    d.add_vertex(vertex_dest,d.graph, d.visited)
+    d.add_edge(vertex_src, vertex_dest, int(edge_weight), isUndirected,d.graph) 
 
 graph_source = fileLines[-1].split(' ')[0]
 d.findShortestPaths(d.graph,graph_source,9)
