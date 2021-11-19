@@ -82,7 +82,7 @@ class strongly_connected_component():
             sc.add_vertex(vertex_dest, sc.graph, sc.visited)
             sc.add_edge(vertex_src, vertex_dest, int(edge_weight),sc.graph) 
 
-        print(sc.strongly_connected_components_driver())
+        print("The strong connected components are:", sc.strongly_connected_components_driver())
       
 if __name__ == "__main__":
     menu = { 1: 'Directed Graph 1', 2: 'Directed Graph 2',3: 'Directed Graph 3',4: 'Directed Graph 4', 5: 'Exit'}
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         
         select_option = ''
         try:
-            select_option = int(input('Please select the graph to be used to run the Dijkstra algorithm: '))
+            select_option = int(input('Please select the graph to be used to get the strongly connected component: '))
         except:
             print('Please input a number')
 
@@ -105,15 +105,15 @@ if __name__ == "__main__":
             d.scc_main(fileName)
 
         elif select_option == 2:
-            fileName = 'directedGraph1.txt'
+            fileName = 'scc_2.txt'
             d.scc_main(fileName)
 
         elif select_option == 3:
-            fileName = 'directedGraph2.txt'
+            fileName = 'scc_3.txt'
             d.scc_main(fileName)
 
         elif select_option == 4:
-            fileName = 'directedGraph2.txt'
+            fileName = 'scc_4.txt'
             d.scc_main(fileName)
         elif select_option == 5:
             break
