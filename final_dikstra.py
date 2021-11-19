@@ -1,4 +1,5 @@
 import sys
+import os
 from heapq import heappop, heappush
 
 class dfs():
@@ -100,9 +101,9 @@ with open('undirectedGraph_1.txt','r') as graph_file:
     fileLines = graph_file.read().splitlines() 
 print(fileLines)
 
-for line in fileLines:
-    l = line.split(' ')
-    last = l[2]
+# for line in fileLines:
+#     l = line.split(' ')
+#     last = l[2]
 # stores the number of vertices in the graph
 vertices_no = 0
 # d.add_vertex('A')
