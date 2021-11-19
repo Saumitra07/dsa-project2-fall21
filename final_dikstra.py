@@ -1,5 +1,4 @@
 import sys
-import os
 from heapq import heappop, heappush
 
 class dfs():
@@ -99,7 +98,27 @@ marks = []
 fileLines = []
 with open('undirectedGraph_1.txt','r') as graph_file:
     fileLines = graph_file.read().splitlines() 
-print(fileLines)
+
+graph_info = fileLines[0].split(' ')
+number_of_vertices = graph_info[0]
+number_of_edges = graph_info[1]
+isUndirected = False
+if str(graph_info[2]).lower() == 'u':
+    isUndirected = True
+
+for i in range(1, len(fileLines)-1):
+    edge_info = fileLines[i].split(' ')
+    vertex_src = edge_info[0]
+    vertex_dest = edge_info[1]
+    edge_weight = edge_info[2]
+    if not d.graph.get(vertex_src):
+        d.add_vertex(vertex_src,d.graph, d.visited)
+    if not d.graph.get(vertex_src):
+        d.add_vertex(vertex_dest,d.graph, d.visited)
+    d.add_edge(vertex_src, vertex_dest, int(edge_weight),d.graph) 
+
+graph_source = fileLines[-1].split(' ')[0]
+d.findShortestPaths(d.graph,graph_source,9)
 
 # for line in fileLines:
 #     l = line.split(' ')
@@ -112,33 +131,33 @@ vertices_no = 0
 # d.add_vertex('D')
 # d.add_vertex('W')
 
-d.add_vertex('a',d.graph, d.visited)
-d.add_vertex('b',d.graph, d.visited)
-d.add_vertex('c',d.graph, d.visited)
-d.add_vertex('d',d.graph, d.visited)
-d.add_vertex('e',d.graph, d.visited)
-d.add_vertex('f',d.graph,d.visited)
-d.add_vertex('g',d.graph,d.visited)
-d.add_vertex('h',d.graph,d.visited)
-d.add_vertex('i',d.graph,d.visited)
+# d.add_vertex('a',d.graph, d.visited)
+# d.add_vertex('b',d.graph, d.visited)
+# d.add_vertex('c',d.graph, d.visited)
+# d.add_vertex('d',d.graph, d.visited)
+# d.add_vertex('e',d.graph, d.visited)
+# d.add_vertex('f',d.graph,d.visited)
+# d.add_vertex('g',d.graph,d.visited)
+# d.add_vertex('h',d.graph,d.visited)
+# d.add_vertex('i',d.graph,d.visited)
 
 
-d.add_edge('a', 'c', 5,d.graph)  
-d.add_edge('a', 'e', 4,d.graph)
-d.add_edge('a', 'f', 2,d.graph)
-d.add_edge('b','e',6,d.graph)
-d.add_edge('b', 'f', 6,d.graph)
-d.add_edge('c', 'd', 3,d.graph)
-d.add_edge('d', 'h', 7,d.graph)
-d.add_edge('h', 'g', 7,d.graph)
-d.add_edge('g', 'e', 4,d.graph)
-d.add_edge('g', 'i', 5,d.graph)
-d.add_edge('i', 'b', 2,d.graph)
-d.add_edge('e', 'd', 6,d.graph)
-d.add_edge('d', 'a', 2,d.graph)
+# d.add_edge('a', 'c', 5,d.graph)  
+# d.add_edge('a', 'e', 4,d.graph)
+# d.add_edge('a', 'f', 2,d.graph)
+# d.add_edge('b','e',6,d.graph)
+# d.add_edge('b', 'f', 6,d.graph)
+# d.add_edge('c', 'd', 3,d.graph)
+# d.add_edge('d', 'h', 7,d.graph)
+# d.add_edge('h', 'g', 7,d.graph)
+# d.add_edge('g', 'e', 4,d.graph)
+# d.add_edge('g', 'i', 5,d.graph)
+# d.add_edge('i', 'b', 2,d.graph)
+# d.add_edge('e', 'd', 6,d.graph)
+# d.add_edge('d', 'a', 2,d.graph)
 
 # d.add_edge('f','e',2,d.graph)
-d.findShortestPaths(d.graph,'d',9)
+# d.findShortestPaths(d.graph,'d',9)
 
 # Add the edges between the vertices by specifying
 # the from and to vertex along with the edge weights.
